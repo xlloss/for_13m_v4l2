@@ -128,7 +128,8 @@ extern int fdfr_osd ;
 
 #if USING_FIXED_MEM_POOL
 
-#define MAX_H264_FRAME_SIZE (119*4096)
+//#define MAX_H264_FRAME_SIZE (119*4096)
+#define MAX_H264_FRAME_SIZE (300*4096)
 #define MAX_H264_FRAME_SLOT (4)
 
 #define MAX_H264_S2_FRAME_SIZE (64*1024)
@@ -987,6 +988,7 @@ __u32 aitcam_get_maxpoolsize_by_ctx_id(struct aitcam_dev *dev, int ctx_id)
         map = &fmtpipe_map[i] ;
         if(ctx_id == map->ctxid)
         {
+            pr_err("fmtpipe_map[%d].max_pool_size 0x%x\r\n", i, map->max_pool_size);
             return map->max_pool_size;
         }
     }
@@ -1046,7 +1048,7 @@ int aitcam_pipealloc(int ctxid, __u32 format, int img_width, int img_height)
     int i ;
     struct aitcam_fmtpipe_map *map;
 
-    pr_err("%s %d\r\n", __func__, __LINE__);
+    pr_err("slash TEST 0.3 %s %d\r\n", __func__, __LINE__);
 
     if(format == 0)
     {

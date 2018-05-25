@@ -63,7 +63,7 @@
 
 #define AUTO_DETECT_RTOS_MEM          (1)
 
-unsigned long  V4L2_BUF_SIZE = (13*1024*1024);
+unsigned long  V4L2_BUF_SIZE = (8*1024*1024);
 
 
 #if AITCAM_IPC_EN
@@ -258,7 +258,10 @@ void aitcam_mem_init (struct aitcam_dev *dev)
       //  RESV_FOR_RTOS_SIZE = 60*1024*1024 ;
       //}
       RESV_FOR_RTOS_SIZE = resv_dram_size - V4L2_BUF_SIZE ;
-      
+      pr_err("resv_dram_size 0x%x\r\n"    , resv_dram_size);
+      pr_err("V4L2_BUF_SIZE 0x%x\r\n"     , V4L2_BUF_SIZE);
+      pr_err("RESV_FOR_RTOS_SIZE 0x%x\r\n", RESV_FOR_RTOS_SIZE);
+ 
       dev->dev_mem.base_addr[MEM_DRAM] += RESV_FOR_RTOS_SIZE ;
       if(resv_dram_size_t > RESV_FOR_RTOS_SIZE) {
         resv_dram_size_t -= RESV_FOR_RTOS_SIZE ;
@@ -276,7 +279,7 @@ void aitcam_mem_init (struct aitcam_dev *dev)
      
     dev->dev_mem.end_addr[MEM_DRAM] = dev->dev_mem.base_addr[MEM_DRAM] + resv_dram_size_t;
     dev->dev_mem.allocated = MMP_TRUE;
-    if(debug_level > 2) {  
+    if(1) {  
       printk(KERN_ERR "   resv_sram_base =  x%x,  resv_sram_size = x%x\n", resv_sram_base, resv_sram_size);
       printk(KERN_ERR "   resv_dram_base =  x%x,  resv_dram_size = x%x\n", resv_dram_base, resv_dram_size);
       printk(KERN_ERR "   dram_start =  x%x,  dram_end = x%x\n", dev->dev_mem.base_addr[MEM_DRAM], dev->dev_mem.end_addr[MEM_DRAM]);
